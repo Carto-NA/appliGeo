@@ -22,9 +22,9 @@ COMMENT ON SCHEMA upload  IS 'Schema pour les médias (JPG,PDF,DOCX,...)';
 
 
 ------------------------------------------------------------------------
--- Table: geo.z_terri_industrie
+-- Table: geo.z_terri_industrie_na
 
--- DROP TABLE geo.z_terri_industrie;
+-- DROP TABLE geo.z_terri_industrie_na;
 CREATE TABLE geo.z_terri_industrie_na
 (
 	  id serial NOT NULL,
