@@ -25,7 +25,7 @@ COMMENT ON SCHEMA upload  IS 'Schema pour les médias (JPG,PDF,DOCX,...)';
 -- Table: geo.z_terri_industrie
 
 -- DROP TABLE geo.z_terri_industrie;
-CREATE TABLE geo.z_terri_industrie
+CREATE TABLE geo.z_terri_industrie_na
 (
 	  id serial NOT NULL,
     code_insee_epci character varying(9),
@@ -40,37 +40,37 @@ CREATE TABLE geo.z_terri_industrie
 	  date_maj date,
 	  geom_valide  boolean DEFAULT false,
 	  geom geometry(MultiPolygon,2154),
-    CONSTRAINT z_terri_industrie_pkey PRIMARY KEY (id),
-    CONSTRAINT z_terri_industrie_uniq UNIQUE (code_insee_epci, annee_donnees)
+    CONSTRAINT z_terri_industrie_na_pkey PRIMARY KEY (id),
+    CONSTRAINT z_terri_industrie_na_uniq UNIQUE (code_insee_epci, annee_donnees)
 );
 
 --
-COMMENT ON TABLE geo.z_terri_industrie IS 'Zonage des territoires d''industrie';
+COMMENT ON TABLE geo.z_terri_industrie_na IS 'Zonage des territoires d''industrie';
 
 --
-COMMENT ON COLUMN geo.z_terri_industrie.id IS 'Identifiant';
-COMMENT ON COLUMN geo.z_terri_industrie.code_insee_epci IS 'Code INSEE de l''EPCI porteuse du territoire';
-COMMENT ON COLUMN geo.z_terri_industrie.nom_epci IS 'Nom de l''EPCI porteuse du territoire';
-COMMENT ON COLUMN geo.z_terri_industrie.libelle_terri_industrie IS 'Nom du territoire d''industrie';
-COMMENT ON COLUMN geo.z_terri_industrie.ville_principale IS 'Ville principale du territoire d''industrie';
-COMMENT ON COLUMN geo.z_terri_industrie.numreg IS 'Code de la région';
-COMMENT ON COLUMN geo.z_terri_industrie.nomreg IS 'Nom de la région';
-COMMENT ON COLUMN geo.z_terri_industrie.commentaires IS 'Commentaires';
-COMMENT ON COLUMN geo.z_terri_industrie.annee_donnees IS 'Année de la données pour l''historisation';
-COMMENT ON COLUMN geo.z_terri_industrie.date_import IS 'Date d''import de la donnée';
-COMMENT ON COLUMN geo.z_terri_industrie.date_maj IS 'Date de mise à jour de la donnée';
-COMMENT ON COLUMN geo.z_terri_industrie.geom_valide IS 'Géométrie validée';
-COMMENT ON COLUMN geo.z_terri_industrie.geom IS 'Géométrie polygone';
+COMMENT ON COLUMN geo.z_terri_industrie_na.id IS 'Identifiant';
+COMMENT ON COLUMN geo.z_terri_industrie_na.code_insee_epci IS 'Code INSEE de l''EPCI porteuse du territoire';
+COMMENT ON COLUMN geo.z_terri_industrie_na.nom_epci IS 'Nom de l''EPCI porteuse du territoire';
+COMMENT ON COLUMN geo.z_terri_industrie_na.libelle_terri_industrie IS 'Nom du territoire d''industrie';
+COMMENT ON COLUMN geo.z_terri_industrie_na.ville_principale IS 'Ville principale du territoire d''industrie';
+COMMENT ON COLUMN geo.z_terri_industrie_na.numreg IS 'Code de la région';
+COMMENT ON COLUMN geo.z_terri_industrie_na.nomreg IS 'Nom de la région';
+COMMENT ON COLUMN geo.z_terri_industrie_na.commentaires IS 'Commentaires';
+COMMENT ON COLUMN geo.z_terri_industrie_na.annee_donnees IS 'Année de la données pour l''historisation';
+COMMENT ON COLUMN geo.z_terri_industrie_na.date_import IS 'Date d''import de la donnée';
+COMMENT ON COLUMN geo.z_terri_industrie_na.date_maj IS 'Date de mise à jour de la donnée';
+COMMENT ON COLUMN geo.z_terri_industrie_na.geom_valide IS 'Géométrie validée';
+COMMENT ON COLUMN geo.z_terri_industrie_na.geom IS 'Géométrie polygone';
 
 -- Ajout des données
-INSERT INTO geo.z_terri_industrie (
+INSERT INTO geo.z_terri_industrie_na (
 	code_insee_epci, nom_epci, libelle_terri_industrie, ville_principale, numreg, nomreg, commentaires, 
 	annee_donnees, date_import, date_maj, geom_valide, geom
 )
 SELECT 
 	code_insee_epci, nom_epci, libelle_terri_industrie, ville_principale, numreg, nomreg, 
 	commentaires, annee_donnees, date_import, date_maj, geom_valide, geom 
-FROM met_zon.m_zon_terri_industrie_geo where annee_donnees = '2020';
+FROM met_zon.m_zon_terri_industrie_geo where annee_donnees = '2020' and numreg = '75';
 
 
 ------------------------------------------------------------------------
