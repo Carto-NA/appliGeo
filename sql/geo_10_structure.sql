@@ -63,6 +63,14 @@ COMMENT ON COLUMN geo.z_terri_industrie.geom_valide IS 'Géométrie validée';
 COMMENT ON COLUMN geo.z_terri_industrie.geom IS 'Géométrie polygone';
 
 -- Ajout des données
+INSERT INTO geo.z_terri_industrie (
+	code_insee_epci, nom_epci, libelle_terri_industrie, ville_principale, numreg, nomreg, commentaires, 
+	annee_donnees, date_import, date_maj, geom_valide, geom
+)
+SELECT 
+	code_insee_epci, nom_epci, libelle_terri_industrie, ville_principale, numreg, nomreg, 
+	commentaires, annee_donnees, date_import, date_maj, geom_valide, geom 
+FROM met_zon.m_zon_terri_industrie_geo where annee_donnees = '2020';
 
 
 ------------------------------------------------------------------------
