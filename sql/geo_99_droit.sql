@@ -7,8 +7,13 @@
 /* Auteur : Tony VINCENT*/
 
 /-- Schéma GEO --/
+--
 GRANT ALL ON TABLE geo.z_terri_industrie_na TO "pre-sig-usr";
 GRANT SELECT ON TABLE geo.z_terri_industrie_na TO "pre-sig-ro";
+
+--
+GRANT ALL ON TABLE geo.z_terri_industrie_na_epci TO "pre-sig-usr";
+GRANT SELECT ON TABLE geo.z_terri_industrie_na_epci TO "pre-sig-ro";
 
 
 /-- Schéma UPLOAD --/
