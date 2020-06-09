@@ -9,11 +9,61 @@
 ------------------------------------------------------------------------
 -- Schéma : Géo
 
+-- DROP SCHEMA geo;
+CREATE SCHEMA IF NOT EXIST geo  AUTHORIZATION "pre-sig-usr";
+
+COMMENT ON SCHEMA geo  IS 'Schema pour le référenciel géographique de Géo';
+  
+  
 -- DROP SCHEMA upload;
 CREATE SCHEMA IF NOT EXIST upload  AUTHORIZATION "pre-sig-usr";
 
 COMMENT ON SCHEMA upload  IS 'Schema pour les médias (JPG,PDF,DOCX,...)';
-  
+
+
+------------------------------------------------------------------------
+-- Table: geo.z_terri_industrie
+
+-- DROP TABLE geo.z_terri_industrie;
+CREATE TABLE geo.z_terri_industrie
+(
+	  id serial NOT NULL,
+    code_insee_epci character varying(9),
+    nom_epci character varying(150),
+    libelle_terri_industrie character varying(150),
+    ville_principale character varying(150),
+    numreg character varying(3),
+    nomreg character varying(150),
+	  commentaires text,
+	  annee_donnees character varying(4),
+	  date_import date,
+	  date_maj date,
+	  geom_valide  boolean DEFAULT false,
+	  geom geometry(MultiPolygon,2154),
+    CONSTRAINT z_terri_industrie_pkey PRIMARY KEY (id),
+    CONSTRAINT z_terri_industrie_uniq UNIQUE (code_insee_epci, annee_donnees)
+);
+
+--
+COMMENT ON TABLE geo.z_terri_industrie IS 'Zonage des territoires d''industrie';
+
+--
+COMMENT ON COLUMN geo.z_terri_industrie.id IS 'Identifiant';
+COMMENT ON COLUMN geo.z_terri_industrie.code_insee_epci IS 'Code INSEE de l''EPCI porteuse du territoire';
+COMMENT ON COLUMN geo.z_terri_industrie.nom_epci IS 'Nom de l''EPCI porteuse du territoire';
+COMMENT ON COLUMN geo.z_terri_industrie.libelle_terri_industrie IS 'Nom du territoire d''industrie';
+COMMENT ON COLUMN geo.z_terri_industrie.ville_principale IS 'Ville principale du territoire d''industrie';
+COMMENT ON COLUMN geo.z_terri_industrie.numreg IS 'Code de la région';
+COMMENT ON COLUMN geo.z_terri_industrie.nomreg IS 'Nom de la région';
+COMMENT ON COLUMN geo.z_terri_industrie.commentaires IS 'Commentaires';
+COMMENT ON COLUMN geo.z_terri_industrie.annee_donnees IS 'Année de la données pour l''historisation';
+COMMENT ON COLUMN geo.z_terri_industrie.date_import IS 'Date d''import de la donnée';
+COMMENT ON COLUMN geo.z_terri_industrie.date_maj IS 'Date de mise à jour de la donnée';
+COMMENT ON COLUMN geo.z_terri_industrie.geom_valide IS 'Géométrie validée';
+COMMENT ON COLUMN geo.z_terri_industrie.geom IS 'Géométrie polygone';
+
+-- Ajout des données
+
 
 ------------------------------------------------------------------------
 -- Table: upload.media_bdd
