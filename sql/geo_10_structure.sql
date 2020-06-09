@@ -68,6 +68,14 @@ SELECT code_terri_industrie, libelle_terri_industrie, numreg, nomreg,
    ON a.code_epci = b.code_insee_epci AND annee_donnees = '2020' and numreg = '75'
   GROUP BY code_terri_industrie, libelle_terri_industrie, numreg, nomreg, annee_donnees, date_import, date_maj;
 
+-- Vue contenant les EPCI des territoires d'industrie
+create or replace view geo.z_terri_industrie_na_epci as
+select zon_code, zon_nom, t2.geom 
+from 
+	geo.z_terri_industrie_na t1,
+	geo.z_epci_na t2
+where ST_Contains(t1.geom, ST_PointOnSurface(t2.geom));
+
 
 ------------------------------------------------------------------------
 -- Table: upload.media_bdd
