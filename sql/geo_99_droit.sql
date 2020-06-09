@@ -6,8 +6,12 @@
 /* Propriétaire : Conseil régional Nouvelle-Aquitaine - http://cartographie.nouvelle-aquitaine.fr/ */
 /* Auteur : Tony VINCENT*/
 
+/-- Schéma GEO --/
+GRANT ALL ON TABLE geo.z_terri_industrie TO "pre-sig-usr";
+GRANT SELECT ON TABLE geo.z_terri_industrie TO "pre-sig-ro";
 
-/--
+
+/-- Schéma UPLOAD --/
 GRANT ALL ON SCHEMA upload TO "pre-sig-usr";
 GRANT ALL ON SCHEMA upload TO "pre-sig-ro";
 
