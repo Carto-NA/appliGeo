@@ -27,21 +27,21 @@ COMMENT ON SCHEMA upload  IS 'Schema pour les médias (JPG,PDF,DOCX,...)';
 -- DROP TABLE geo.z_terri_industrie_na;
 CREATE TABLE geo.z_terri_industrie_na
 (
-	  id serial NOT NULL,
-    code_insee_epci character varying(9),
-    nom_epci character varying(150),
-    libelle_terri_industrie character varying(150),
-    ville_principale character varying(150),
-    numreg character varying(3),
-    nomreg character varying(150),
-	  commentaires text,
-	  annee_donnees character varying(4),
-	  date_import date,
-	  date_maj date,
-	  geom_valide  boolean DEFAULT false,
-	  geom geometry(MultiPolygon,2154),
-    CONSTRAINT z_terri_industrie_na_pkey PRIMARY KEY (id),
-    CONSTRAINT z_terri_industrie_na_uniq UNIQUE (code_insee_epci, annee_donnees)
+	id serial NOT NULL,
+	code_insee_epci character varying(9),
+	nom_epci character varying(150),
+	libelle_terri_industrie character varying(150),
+	ville_principale character varying(150),
+	numreg character varying(3),
+	nomreg character varying(150),
+	commentaires text,
+	annee_donnees character varying(4),
+	date_import date,
+	date_maj date,
+	geom_valide  boolean DEFAULT false,
+	geom geometry(MultiPolygon,2154),
+	CONSTRAINT z_terri_industrie_na_pkey PRIMARY KEY (id),
+	CONSTRAINT z_terri_industrie_na_uniq UNIQUE (code_insee_epci, annee_donnees)
 );
 
 --
@@ -64,13 +64,15 @@ COMMENT ON COLUMN geo.z_terri_industrie_na.geom IS 'Géométrie polygone';
 
 -- Ajout des données
 INSERT INTO geo.z_terri_industrie_na (
-	code_insee_epci, nom_epci, libelle_terri_industrie, ville_principale, numreg, nomreg, commentaires, 
-	annee_donnees, date_import, date_maj, geom_valide, geom
+	libelle_terri_industrie, numreg, nomreg, 
+	annee_donnees, date_import, geom
 )
-SELECT 
-	code_insee_epci, nom_epci, libelle_terri_industrie, ville_principale, numreg, nomreg, 
-	commentaires, annee_donnees, date_import, date_maj, geom_valide, geom 
-FROM met_zon.m_zon_terri_industrie_geo where annee_donnees = '2020' and numreg = '75';
+SELECT libelle_terri_industrie, numreg, nomreg, 
+ 	annee_donnees, date_import, ST_Multi(ST_Union(a.geom)) AS geom
+   FROM ref_adminexpress.r_admexp_epci_fr a
+   INNER JOIN ref_zonage.t_appartenance_geo_epci_terri_industrie b
+   ON a.code_epci = b.code_insee_epci AND annee_donnees = '2020' and numreg = '75'
+  GROUP BY libelle_terri_industrie, numreg, nomreg, annee_donnees, date_import, date_maj;
 
 
 ------------------------------------------------------------------------
