@@ -69,7 +69,7 @@ SELECT code_terri_industrie, libelle_terri_industrie, numreg, nomreg,
   GROUP BY code_terri_industrie, libelle_terri_industrie, numreg, nomreg, annee_donnees, date_import, date_maj;
 
 -- Vue contenant les EPCI des territoires d'industrie
-create or replace view geo.z_terri_industrie_na_epci as
+create or replace view geo.z_view_terri_industrie_na_epci as
 select zon_code, zon_nom, t2.geom 
 from 
 	geo.z_terri_industrie_na t1,
