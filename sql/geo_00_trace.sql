@@ -11,4 +11,5 @@
 #################################################################### SUIVI CODE SQL ####################################################################
 2020-06-08 : TV / initialisation du code uniquement
 2020-06-08 : TV / initialisation de la structure pour les documents Territoire TEPOS
-2020-06_08 : TV / ajout des droits pour la structure pour les documents Territoire TEPOS
+2020-06-08 : TV / ajout des droits pour la structure pour les documents Territoire TEPOS
+2020-06-09 : TV / ajout des droits pour la structure pour les territoires d'industrie
